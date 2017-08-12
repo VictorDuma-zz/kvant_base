@@ -1,0 +1,58 @@
+{% extends "base_2.html" %}
+{% load static from staticfiles %}
+{% block title %}Клієнти{% endblock title %}
+
+
+   {% block content %}
+
+<a class="btn btn-primary form_block" href="{% url 'add_customer'%}" role="button" target="_blank"
+			   onclick="window.open(this.href, '', 'scrollbars=1, height='+Math.min(500, screen.availHeight)+', width='+Math.min(400, screen.availWidth)+', top='+ ((window.innerHeight - 300)/2)+', left='+((window.innerWidth - 400)/2)); return false;">Додати клієнта</a></li>
+
+
+<table class="table table-bordered table-condensed table-hover table-striped table-bordered">
+
+                 <thead>
+
+				  <tr>
+                      <th>Імя</th>
+					  <th>Телефон</th>
+					  <th>Email</th>
+					  <th>Адреса</th>
+					  <th>Нотатки</th>
+
+                  </tr>
+
+				  </thead>
+
+                </div>
+
+			   <tbody >
+
+		   {% for obj in customer %}
+
+		   <tr ondblclick="go('{% url 'edit_customer' obj.id %}'); return false;">
+			  <td>{{obj.contact_name}}</td>
+			  <td>{{obj.phone}}</td>
+			  <td>{{obj.email}}</td>
+
+               {%if obj.adress%}
+			   <td>{{obj.adress}}</td>
+			   {%else%}
+			   <td></td>
+			   {%endif%}
+
+               <td>{{obj.notes}}</td>
+		  </tr>
+
+		  {% endfor %}
+
+			   </tbody>
+
+	   </table>
+
+
+
+</div>
+
+
+{% endblock content %}

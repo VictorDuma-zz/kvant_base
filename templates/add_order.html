@@ -1,0 +1,119 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filter %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+{% block title %}Нова заявка{% endblock title %}
+
+{% block content %}
+
+
+
+	 <a class="btn btn-primary form_block" href="{% url "add_customer" %}" role="button" target="_blank"
+			   onclick="window.open(this.href, '', 'scrollbars=1, height='+Math.min(500, screen.availHeight)+', width='+Math.min(400, screen.availWidth)+', top='+ ((window.innerHeight - 300)/2)+', left='+((window.innerWidth - 400)/2)); return false;">Новий клієнт</a>
+
+
+	  <form action="{% url "add_order"%}" class="form-horizontal form_field" method="POST" name="add_order" >
+
+               {% csrf_token%}
+
+
+         <div class="bs-example">
+            <ul class="nav nav-tabs" id="myTab">
+                <li><a data-toggle="tab" href="#sectionA">Основні дані</a></li>
+                <li><a data-toggle="tab" href="#sectionB">Опис</a></li>
+                <li><a data-toggle="tab" href="#sectionC">Фінінсові дані</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="sectionA" class="tab-pane fade in active">
+                    <label for="status">Статус</label>
+                    {{ form.status.errors }}
+                     {{ form.status|addcss:"form-control form_field"}}
+
+                    <label for="customer">Клієнт*</label>
+                    {{ form.customer.errors }}
+                    {{ form.customer|addcss:"form-control form_field"}}
+
+                    <label for="brand">Назва бренду*</label>
+                    {{ form.brand.errors }}
+                    {{ form.brand|addcss:"form-control form_field"}}
+
+                    <label for="model_item">Модель</label>
+                    {{ form.model_item.errors }}
+                    {{ form.model_item|addcss:"form-control form_field"}}
+
+                     <label for="serial_number">Серійний номер</label>
+                    {{ form.serial_number.errors }}
+                    {{ form.serial_number|addcss:"form-control form_field"}}
+
+                    <label for="source">Звідки клієнт*</label>
+                    {{ form.source.errors }}
+                    {{ form.source|addcss:"form-control form_field"}}
+
+                </div>
+                <div id="sectionB" class="tab-pane fade">
+                    <label for="is_warranty">Гарантія</label>
+                    {{ form.is_warranty.errors }}
+                     {{ form.is_warranty|addcss:"form-control form_field"}}
+
+                    <label for="warranty_start">Початок гарантії</label>
+                    {{ form.warranty_start.errors }}
+                    {{ form.warranty_start|addcss:"form-control form_field dateinput"}}
+
+                    <label for="to_send">Відправка</label>
+                    {{ form.to_send.errors }}
+                    {{ form.to_send|addcss:"form-control form_field"}}
+
+                    <label for="reason">Несправність</label>
+                    {{ form.reason.errors }}
+                    {{ form.reason|addcss:"form-control form_field"}}
+
+                     <label for="look">Зовнішній вигляд</label>
+                    {{ form.look.errors }}
+                    {{ form.look|addcss:"form-control form_field"}}
+
+                    <label for="additional">Комплектація</label>
+                    {{ form.additional.errors }}
+                    {{ form.additional|addcss:"form-control form_field"}}
+
+                </div>
+                <div id="sectionC" class="tab-pane fade">
+   
+                    <label for="reason">Інженер</label>
+                    {{ form.engineer.errors }}
+                    {{ form.engineer|addcss:"form-control form_field"}}
+
+                    <label for="cost_repair">Вартість ремонту</label>
+                    {{ form.cost_repair.errors }}
+                     {{ form.cost_repair|addcss:"form-control form_field"}}
+
+                    <label for="notes">Нотатки</label>
+                    {{ form.notes.errors }}
+                    {{ form.notes|addcss:"form-control form_field"}}
+
+
+                 </div>
+
+            </div>
+        </div>
+
+          {% buttons %}
+          <input type="submit" name="save_button" value="Зберегти" class="btn btn-primary form_block"/>
+		  <input type="submit" name="cancel_button" value="Скасувати" class="btn btn-link form_block"/>
+		  {% endbuttons %}
+
+
+
+        </form>
+
+
+
+{% endblock content %}
+
+
+
+

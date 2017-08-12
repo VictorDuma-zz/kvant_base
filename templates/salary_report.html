@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+{% block title %}Додати вид роботи{% endblock title %}
+
+{% block content %}
+
+	  <form action="{% url "salary_report" repair%}" class="form-horizontal form_field" method="post" name="add_customer" >
+
+      	 {% csrf_token%}
+		  
+	     {% bootstrap_form form layout="horizontal" %}
+
+          {% buttons %}
+          <input type="submit" name="save_button" value="Зберегти" class="btn btn-primary form_block"/>
+		  <input type="submit" name="cancel_button" value="Скасувати" class="btn btn-link form_block"/>
+		  {% endbuttons %}
+
+
+	  </form>
+	 
+{% endblock content %}

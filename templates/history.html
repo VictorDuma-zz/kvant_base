@@ -1,0 +1,83 @@
+{% extends "base_2.html" %}
+{% load static from staticfiles %}
+{% block title %}Розрахунок з контрагентами{% endblock title %}
+
+{% block menu %}
+				{% include "navbar.html" %}
+{% endblock menu %}
+
+
+
+   {% block content %}
+
+
+
+
+    <table class="table table-bordered table-condensed table-fixedheader">
+
+
+                   <div class="page-header ">
+                      <thead>
+                      <tr>
+
+                          <th>№</th>
+                          <th>Дата</th>
+                          <th>Вид ремонту</th>
+                          <th>Вартість послуги</th>
+                          <th>Витрата</th>
+                          <th>Нотатки</th>
+
+                      </tr>
+                      </thead>
+
+                    </div>
+
+                   <tbody >
+
+
+
+
+            <div class="form-horizontal">
+
+                 <h2>Клієнт: <strong>{{ customer.contact_name }}</strong></h2>
+
+            </div>
+
+                    {% for transaction in transactions %}
+               <tr >
+
+                  <td>{{transaction.order_number.id}}</td>
+                  <td>{{transaction.created_at|date:"d.m.Y"}}</td>
+                  <td>{% for i in transaction.order_number.kind_repair.all %}<li> {{i.name}} </li> {% endfor %}</td>
+                   {%if transaction.debit%}
+                  <td>{{transaction.debit}}</td>
+                   {%else%}
+                   <td></td>
+                   {%endif%}
+                   {%if transaction.credit%}
+                  <td>{{transaction.credit}}</td>
+                   {%else%}
+                   <td></td>
+                   {%endif%}
+                   <td>{{transaction.notes}}</td>
+
+              </tr>
+
+                    {% endfor %}
+
+
+
+			   </tbody>
+
+	   </table>
+     <div><h1>Баланс {{customer_balance}}</h></div>
+ <div class="col-xs-2">
+				<h3>В касі {{balance.current_balance}} грн</h3>
+			</div>
+
+
+
+
+
+
+{% endblock content %}

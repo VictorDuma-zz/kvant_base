@@ -1,0 +1,63 @@
+{% extends "base_2.html" %}
+{% load static from staticfiles %}
+{% block title %}{% endblock title %}
+
+
+
+
+
+   {% block content %}
+
+<table class="table table-bordered table-condensed table-hover table-striped table-bordered">
+
+
+               <div class="page-header ">
+                  <thead>
+				  <tr>
+					  <th>№</th>
+					  <th>Дата оплати</th>
+					  <th>Бренд</th>
+					  <th>Модель</th>
+					  <th>Вартість</th>
+					  <th>Інженер</th>
+					  <th>Вид роботи</th>
+					  <th>Оплата інженеру</th>
+
+                  </tr>
+				  </thead>
+
+                </div>
+
+			   <tbody >
+
+
+                {% for repair in repairs %}
+		   <tr ondblclick="go('{% url 'edit_salary_report' repair.id %}'); return false;">
+             <td>{{repair.repair.pk}}</td>
+			  <td>{{repair.paid_date}}</td>
+			  <td>{{repair.repair.brand}}</td>
+			  <td>{{repair.repair.model_item}}</td>
+              <td>{{repair.repair_cost}}</td>
+			  <td>{{repair.engineer}}</td>
+			  <td>{{repair.item.name}}</td>
+			   {%if repair.paid_engineer%}
+			  <td>{{repair.paid_engineer}}</td>
+			   {%else%}
+			  <td>{{repair.item.paid_engineer}}</td>
+			   {%endif%}
+
+
+		  </tr>
+
+			    {% endfor %}
+
+
+			   </tbody>
+
+	   </table>
+
+
+
+
+
+{% endblock content %}

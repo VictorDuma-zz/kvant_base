@@ -1,0 +1,110 @@
+{% extends "base_2.html" %}
+{% load static from staticfiles %}
+{% block title %}Квант база клієнтів{% endblock title %}
+
+
+
+
+
+   {% block content %}
+
+  <div class="page-header ">
+ <p>Ви шукали: <strong>{{ q }}</strong></p>
+
+{% if posts %}
+    <p>Знайдено {{ posts|length }} результатів.</p>
+
+    {% else %}
+
+    <p>Не знайдено</p>
+
+{% endif %}
+
+</div>
+
+<table class="table table-bordered table-condensed table-fixedheader">
+
+
+                  <thead>
+				  <tr>
+					  <th>№</th>
+					  <th>Дата</th>
+					  <th>Клієнт</th>
+					  <th>Телефон</th>
+					  <th>Бренд</th>
+					  <th>Модель</th>
+					  <th>Вартість</th>
+					  <th>Серійний номер</th>
+					  <th>Статус</th>
+					  <th>Інженер</th>
+					  <th>Дія</th>
+					  <th>Дата закриття</th>
+					  <th>Гарантія</th>
+
+
+
+				  </tr>
+				  </thead>
+
+
+			   <tbody >
+
+		   {% for post in posts %}
+
+		   <tr class="{{post.status}}" ondblclick="go('{% url 'edit_order' post.id %}'); return false;">
+
+			  <td > {{post.id}}</a></td>
+			  <td>{{post.date_now|date:"d.m.Y H:i"}}</td>
+			  <td>{{post.customer.contact_name}}</td>
+			  <td>{{post.customer.phone}}</td>
+			  <td>{{post.brand}}</td>
+			  <td>{{post.model_item}}</td>
+			   <td>{{post.cost_repair}}</td>
+			  <td>{{post.serial_number}}</td>
+			  <td>{{post.get_status_display}}</td>
+			   <td>{{post.engineer}}</td>
+			   <td><div class="dropdown"> <a class="dropdown-toggle btn btn-primary" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+                                                                        Дія <b class="caret"></b> </a>
+               <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+
+				  <li><a class="btn btn-mini" href = '' role="button" onclick="go('{% url 'close_order' post.id%}'); return false;">Закрити </a></li>
+				  <li><a class="btn btn-mini" href = '' role="button" onclick="go('{% url 'order_doc' post.id%}'); return false;">Друк заявки</a></li>
+				  <li><a class="btn btn-mini" href = '' role="button" onclick="go('{% url 'hand_in' post.id%}'); return false;">Друк акту видачі</a></li>
+              </ul>
+                  </div>
+
+			   </td>
+			   {%if post.date_close%}
+			   <td>{{post.date_close|date:"d.m.Y H:i" }}</td>
+			   {%else%}
+			   <td></td>
+			   {%endif%}
+
+			   <td>
+				  {{post.get_is_warranty_display}}
+
+               </td>
+
+		  </tr>
+
+			    {% endfor %}
+			   </tbody>
+
+	   </table>
+
+
+	   <div class="row footer1">
+		   {% block status_message %}
+            {% if request.GET.status_message %}
+         <div class="col-xs-2" class="alert alert-warning" role="alert">{{ request.GET.status_message }}</div>
+             {% endif %}
+          {% endblock %}
+             <div class="col-xs-12">
+                  &copy; 2016 Квант база клієнтів
+             </div>
+        </div>
+</div>
+
+
+{% endblock content %}
+

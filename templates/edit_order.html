@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filter %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}{% block status_message %}
+
+{% if form.errors %}
+<div class=”alert alert-warning” role=”alert”>Будь-ласка, виправте наступні помилки</div>
+{% endif %}
+
+{% endblock %}
+
+{% block title %}Редагувати замовлення{% endblock title %}
+
+{% block content %}
+
+<a class="btn btn-primary form_block" href="{% url "edit_customer" customer.id%}" role="button" target="_blank"
+			   onclick="window.open(this.href, '', 'scrollbars=1, height='+Math.min(500, screen.availHeight)+', width='+Math.min(400, screen.availWidth)+', top='+ ((window.innerHeight - 300)/2)+', left='+((window.innerWidth - 400)/2)); return false;">Редагувати клієнта</a>
+
+
+	  <form id="forminput" action="{% url 'edit_order' object.id%}" method="post" name="edit_order" >
+
+      	 {% csrf_token%}
+
+	     <div class="bs-example">
+            <ul class="nav nav-tabs" id="myTab">
+                <li><a data-toggle="tab" href="#sectionA">Основні дані</a></li>
+                <li><a data-toggle="tab" href="#sectionB">Опис</a></li>
+                <li><a data-toggle="tab" href="#sectionC">Фінінсові дані</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="sectionA" class="tab-pane fade in active">
+                    <label for="status">Статус</label>
+                    {{ form.status.errors }}
+                     {{ form.status|addcss:"form-control form_field"}}
+
+                    <label for="customer">Клієнт*</label>
+                    {{ form.customer.errors }}
+                    {{ form.customer|addcss:"form-control form_field"}}
+
+                    <label for="brand">Назва бренду*</label>
+                    {{ form.brand.errors }}
+                    {{ form.brand|addcss:"form-control form_field"}}
+
+                    <label for="model_item">Модель</label>
+                    {{ form.model_item.errors }}
+                    {{ form.model_item|addcss:"form-control form_field"}}
+
+                     <label for="serial_number">Серійний номер</label>
+                    {{ form.serial_number.errors }}
+                    {{ form.serial_number|addcss:"form-control form_field"}}
+
+                    <label for="source">Звідки клієнт*</label>
+                    {{ form.source.errors }}
+                    {{ form.source|addcss:"form-control form_field"}}
+
+                </div>
+                <div id="sectionB" class="tab-pane fade" style="position: relative">
+                    <label for="is_warranty">Гарантія</label>
+                    {{ form.is_warranty.errors }}
+                     {{ form.is_warranty|addcss:"form-control form_field"}}
+
+                    <label for="warranty_start">Початок гарантії</label>
+                    {{ form.warranty_start.errors }}
+                    {{ form.warranty_start|addcss:"form-control form_field dateinput"}}
+
+                    <label for="to_send">Відправка</label>
+                    {{ form.to_send.errors }}
+                    {{ form.to_send|addcss:"form-control form_field"}}
+
+                    <label for="reason">Несправність</label>
+                    {{ form.reason.errors }}
+                    {{ form.reason|addcss:"form-control form_field"}}
+
+                     <label for="look">Зовнішній вигляд</label>
+                    {{ form.look.errors }}
+                    {{ form.look|addcss:"form-control form_field"}}
+
+                    <label for="additional">Комплектація</label>
+                    {{ form.additional.errors }}
+                    {{ form.additional|addcss:"form-control form_field"}}
+
+                </div>
+                <div id="sectionC" class="tab-pane fade">
+
+                    <label for="reason">Інженер</label>
+                    {{ form.engineer.errors }}
+                    {{ form.engineer|addcss:"form-control form_field"}}
+
+                    <label for="cost_repair" >Вартість ремонту</label>
+                  <input class="form-control form_field"  type="text" value="{{ cost_repair }}" name="cost_repair" id="cost_repair" />
+
+
+                    <label for="notes">Нотатки</label>
+                    {{ form.notes.errors }}
+                    {{ form.notes|addcss:"form-control form_field"}}
+
+
+                    <div style="border-style: double; margin: 15px;">
+
+                     <table class="table table-bordered table-condensed table-fixedheader">
+                         <thead>
+                         <tr>
+                             <th>Необхідні роботи</th>
+                             <th>Інженер</th>
+                             <th>Вартість</th>
+                             <th>Запчастина</th>
+                             <th>Оплачено</th>
+                             <th> <a class="btn btn-primary form_block" href="{% url 'salary_report' object.pk%}" role="button" target="_blank"
+			   onclick="window.open(this.href, '', 'scrollbars=1, height='+Math.min(500, screen.availHeight)+', width='+Math.min(400, screen.availWidth)+', top='+ ((window.innerHeight - 300)/2)+', left='+((window.innerWidth - 400)/2)); return false;">Додати</a></th>
+                         </tr>
+                          </thead>
+                         {% for report in reports %}
+                     <tr>
+                      <td>{{report.item.get_item_display}} {{report.item.name}}</td>
+                      <td>{{report.engineer}}</td>
+                         {%if report.repair_cost%}
+                      <td>{{report.repair_cost}}</td>
+                         {%else%}
+			          <td>{{report.item.paid_customer}}</td>
+			             {%endif%}
+                      <td>{{report.part}}</td>
+                      <td>{{report.get_is_paid_display}}</td>
+                      <td><div class="dropdown"> <a class="dropdown-toggle btn btn-primary" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+                                                                        Дія <b class="caret"></b> </a>
+               <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+
+				  <li><a class="btn btn-primary form_block" href="{% url 'edit_salary_report' report.id %}" role="button" target="_blank" onclick="window.open(this.href, '', 'scrollbars=1, height='+Math.min(500, screen.availHeight)+', width='+Math.min(400, screen.availWidth)+', top='+ ((window.innerHeight - 300)/2)+', left='+((window.innerWidth - 400)/2)); return false;">Редагувати</a></li>
+
+				  <li><a class="btn btn-primary form_block" href="{% url 'salary_confirm_delete' report.id %}" role="button" target="_blank" onclick="window.open(this.href, '', 'scrollbars=1, height='+Math.min(500, screen.availHeight)+', width='+Math.min(400, screen.availWidth)+', top='+ ((window.innerHeight - 300)/2)+', left='+((window.innerWidth - 400)/2)); return false;">Видалити</a></li>
+
+              </ul>
+                  </div>
+
+			   </td>
+
+                     </tr>
+                         {% endfor %}
+                     </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+          {% buttons %}
+          <input type="submit" name="save_button" value="Зберегти" class="btn btn-primary form_block"/>
+		  <input type="submit" name="cancel_button" value="Скасувати" class="btn btn-link form_block"/>
+		  {% endbuttons %}
+
+
+		   <a class="btn btn-primary form_block"
+			  href="{% url 'order_doc' object.id%}" role="button" target="_blank"
+			   onclick="window.open(this.href, '', 'scrollbars=1, height='+Math.min(700, screen.availHeight)+', width='+Math.min(600, screen.availWidth)+', top='+ ((window.innerHeight - 300)/2)+', left='+((window.innerWidth - 400)/2)); return false;">Друк заявки</a>
+
+		  <a class="btn btn-primary form_block"
+			  href="{% url 'sticker' object.id%}" role="button" target="_blank"
+			   onclick="window.open(this.href, '', 'scrollbars=1, height='+Math.min(700, screen.availHeight)+', width='+Math.min(600, screen.availWidth)+', top='+ ((window.innerHeight - 300)/2)+', left='+((window.innerWidth - 400)/2)); return false;">Друк наліпки</a>
+
+		  <a class="btn btn-primary form_block"
+			 href="{% url 'hand_in' object.id%}" role="button" target="_blank"
+			   onclick="window.open(this.href, '', 'scrollbars=1, height='+Math.min(700, screen.availHeight)+', width='+Math.min(600, screen.availWidth)+', top='+ ((window.innerHeight - 300)/2)+', left='+((window.innerWidth - 400)/2)); return false;">Друк звіту</a>
+
+
+	  </form>
+
+{% endblock content %}
+
+

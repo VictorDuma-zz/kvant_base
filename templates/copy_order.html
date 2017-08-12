@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+{% block title %}Скопіювати замовлення{% endblock title %}
+
+{% block content %}
+
+	  <form  action="{% url 'copy_order' new_order.id %}" class="form-horizontal form_field" method="post" name="copy_order" >
+
+      	 {% csrf_token%}
+		 <h2>Ви дійсно хочете скопіювати замовлення {{ new_order.pk }} ?</h2>
+  <input type="submit" name="save_button" value="Так" class="btn btn-danger"/>
+  <input type="submit" name="cancel_button" value="Скасувати" class="btn btn-mini"/>
+	  </form>
+	 
+{% endblock content %}

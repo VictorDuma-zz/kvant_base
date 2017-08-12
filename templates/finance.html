@@ -1,0 +1,88 @@
+{% extends "base_2.html" %}
+{% load static from staticfiles %}
+{% block title %}Фінанси{% endblock title %}
+
+
+   {% block content %}
+
+<a class="btn btn-primary form_block" href="{% url "debit" %}" role="button" target="_blank"
+			   onclick="window.open(this.href, '', 'scrollbars=1, height='+Math.min(500, screen.availHeight)+', width='+Math.min(400, screen.availWidth)+', top='+ ((window.innerHeight - 300)/2)+', left='+((window.innerWidth - 400)/2)); return false;">оплата</a>
+<a class="btn btn-primary form_block" href="{% url "credit" %}" role="button" target="_blank"
+			   onclick="window.open(this.href, '', 'scrollbars=1, height='+Math.min(500, screen.availHeight)+', width='+Math.min(400, screen.availWidth)+', top='+ ((window.innerHeight - 300)/2)+', left='+((window.innerWidth - 400)/2)); return false;">витрата</a>
+
+
+<table class="table table-bordered table-condensed table-hover table-striped table-bordered">
+
+               <div class="page-header ">
+                  <thead>
+				  <tr>
+					  <th>№</th>
+					  <th>Дата</th>
+					  <th>Замовлення</th>
+					  <th>Контрагент</th>
+					  <th>Надходження</th>
+					  <th>Витрати</th>
+					  <th>Нотатки</th>
+					  <th>Каса</th>
+					  <th>Дії</th>
+                  </tr>
+				  </thead>
+
+                </div>
+
+			   <tbody >
+                   {% for transaction in transactions %}
+
+		   <tr>
+
+               <td>{{transaction.pk}}</td>
+			  <td>{{transaction.created_at|date:"d.m.Y"}}</td>
+			  <td>{{transaction.order_number.pk}}</td>
+			  <td>{{transaction.agent.contact_name}}</td>
+
+               {%if transaction.debit%}
+			   <td>{{transaction.debit}}</td>
+			   {%else%}
+			   <td></td>
+			   {%endif%}
+
+                {%if transaction.credit%}
+			   <td>{{transaction.credit}}</td>
+			   {%else%}
+			   <td></td>
+			   {%endif%}
+
+			   <td>{{transaction.notes}}</td>
+			   <td>{{transaction.balance.name}}</td>
+               <td><div class="dropdown"> <a class="dropdown-toggle btn btn-primary" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+                                                                        Дія <b class="caret"></b> </a>
+               <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+
+				  <li> <a class="btn btn-primary form_block" href="{% url 'check_doc' transaction.id%}" role="button" target="_blank"
+			   onclick="window.open(this.href, '', 'scrollbars=1, height='+Math.min(500, screen.availHeight)+', width='+Math.min(400, screen.availWidth)+', top='+ ((window.innerHeight - 300)/2)+', left='+((window.innerWidth - 400)/2)); return false;">Друк чеку</a></li>
+               {%if transaction.debit%}
+				   <li> <a class="btn btn-primary form_block" href="{% url 'edit_debit' transaction.id%}" role="button" target="_blank"
+			   onclick="window.open(this.href, '', 'scrollbars=1, height='+Math.min(500, screen.availHeight)+', width='+Math.min(400, screen.availWidth)+', top='+ ((window.innerHeight - 300)/2)+', left='+((window.innerWidth - 400)/2)); return false;">Редагувати</a></li>
+				   {%else%}
+				   <li> <a class="btn btn-primary form_block" href="{% url 'edit_credit' transaction.id%}" role="button" target="_blank"
+			   onclick="window.open(this.href, '', 'scrollbars=1, height='+Math.min(500, screen.availHeight)+', width='+Math.min(400, screen.availWidth)+', top='+ ((window.innerHeight - 300)/2)+', left='+((window.innerWidth - 400)/2)); return false;">Редагувати</a></li>
+				   {%endif%}
+
+              </ul>
+                  </div>
+
+			   </td>
+
+		  </tr>
+
+			    {% endfor %}
+			   </tbody>
+
+	   </table>
+
+
+
+</div>
+
+
+{% endblock content %}

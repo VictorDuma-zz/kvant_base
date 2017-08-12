@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+{% load static from staticfiles %}
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+
+	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.0/css/bootstrap.min.css">
+     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.0.0/css/bootstrap-datetimepicker.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+ </head>
+ <body>
+         <div class="container" >
+
+		<div class="row" >
+
+			  <div class="col-xs-8 col-sm-3"><img src="{% static "img/logo_doc.png" %}" ></div>
+
+			  <div  class="col-xs-4 col-sm-offset-3"  style="border: 1px solid black;">
+				  <p><font size="0.5" face="Arial">вул. Руська, 4-б </br>
+				  тел./095/ 684-00-34 </br>
+				  kvant.cv@gmail.com</font></p>
+			  </div>
+
+		</div>
+
+	    <div><h4 style="text-align:center;">Замовлення на прийом техніки в ремонт № {{ order.pk }} від {{order.date_now|date:"j E Y" }}</h4></div>
+
+	   <div >
+		   <table cellpadding="7" width="100%"> <font size="1">
+		   <tr>
+			   <td>Дата прийому: </td>
+			   <td>{{order.date_now|date:"d.m.Y H:i" }}</td>
+		       <td>RMA:</td>
+		   <tr/>
+           <tr>
+			   <td valign="top">Найменування:</td>
+			   <td valign="top">{{order.brand}}</td>
+		       <td valign="top">Дата продажу: {{order.warranty_start|date:"d.m.Y"}}</td>
+           <tr/>
+			   <tr>
+			   <td valign="top">Модель: </td>
+			   {% if order.model_item%}
+			   <td valign="top">{{order.model_item}}</td>
+			   {% else %}
+			   <td valign="top">&nbsp;</td>
+			   {% endif %}
+		       <td valign="top">Гарантійний ремонт: {% if order.is_warranty == True%} Так {% else %} Ні {% endif %}</td>
+           <tr/>
+		   <tr>
+			  <td valign="top">Серійний номер:</td>
+			   {% if order.serial_number%}
+			   <td valign="top">{{order.serial_number}}</td>
+			    {% else %}
+			   <td valign="top">&nbsp;</td>
+			   {% endif %}
+		       <td valign="top">Погоджуюся на опитування по E-Mail: Так  Ні</td>
+           <tr/>
+		   <tr>
+			  <td valign="top">Несправність:</td>
+			   {% if order.reason%}
+			   <td valign="top">{{order.reason}}</td>
+			    {% else %}
+			   <td valign="top">&nbsp;</td>
+			   {% endif %}
+		       <td>Графік роботи: Пн-Пт 10-19</td>
+           <tr/>
+		   <tr>
+			  <td valign="top">Зовнішній вигляд:</td>
+			   {% if order.look%}
+			   <td valign="top">{{order.look}}</td>
+			    {% else %}
+			   <td valign="top">&nbsp;</td>
+			   {% endif %}
+		       <td></td>
+           <tr/>
+		   <tr>
+			  <td valign="top">Комплектація:</td>
+			   {% if order.additional%}
+			   <td valign="top">{{order.additional}}</td>
+			    {% else %}
+			   <td valign="top">&nbsp;</td>
+			   {% endif %}
+		       <td></td>
+           <tr/>
+			<tr>
+			  <td valign="top">ПІБ Замовника:</td>
+
+			   <td valign="top">{{order.customer.contact_name}}</td>
+
+		       <td></td>
+           <tr/>
+		   <tr>
+			  <td valign="top">Телефон Замовника:</td>
+
+			   <td valign="top">{{order.customer.phone}}</td>
+
+		       <td></td>
+           <tr/>
+		   <tr>
+			  <td valign="top">Email:</td>
+			   {% if order.customer.email%}
+			   <td valign="top">{{order.customer.email}}</td>
+			    {% else %}
+			   <td valign="top">&nbsp;</td>
+			   {% endif %}
+		       <td></td>
+           <tr/>
+		   <tr>
+			  <td valign="top">Адреса:</td>
+			   {% if order.customer.adress%}
+			   <td valign="top">{{order.customer.adress}}</td>
+			    {% else %}
+			   <td valign="top">&nbsp;</td>
+			   {% endif %}
+		       <td></td>
+           <tr/>
+			<table/>
+
+
+
+	     </div>
+
+	   <div>
+		   <p style="text-align:justify; line-height: 10px; border: 1px solid black;"><font size="0.5" face="Arial" >До уваги клієнтів! Умови проведення ремонту.<br>Сервісний центр усуває тільки заявлені несправності.
+		   Строк гарантійного ремонту складає 14 (чотирнадцять) днів при наявності запчастин,
+		   за умови відсилання техніки в СЦ першого рівня, строк ремонту подовжується на строк доставки виробу.
+		   В разі поставки запчастин з заводу виробника, строк ремонту може збільшуватись на 30 (тридцять) днів.
+		   Термін негарантійного ремонту - за домовленістю. Безоплатний строк зберігання відремонтованого обладнання 10 (десять) днів з дня сповіщення.
+		   Після проходження 10 днів стягується плата за зберігання в розмірі 10 гривень за добу зберігання. Після трьох місяців зберігання,
+		   обладнання переходить у власність сервісного центру.
+		   В разі відмови від ремонту, клієнт оплачує діагностику.
+		   Обладнання зі згоди клієнта прийнято без розбирання і перевірки несправностей, без перевірки внутрішніх пошкоджень.
+		   Клієнт згоден, що всі несправності і внутрішні ушкодження, які можуть бути виявлені в обладнанні при його технічному обслуговування виникли
+		   до прийому по даній квитанції.
+		   Сервісний центр не несе відповідальності за отримання обладнання іншою особою при пред’явленні квитанції.
+		   При втраті квитанції сповістити модель та ПІБ за тел. 095 684 00 34.
+		   Отримання обладнання без квитанції
+		   при пред’явленні паспорта. З комплектацією, описом дефектів, умовами зберігання та обслуговування обладнання згоден.
+		   З умовами і строками ремонту ознайомлений та згоден.</font></p>
+
+	   </div>
+
+	<div class="row">
+
+			  <div class="col-xs-6 col-sm-3">Клієнт  _____________</div>
+
+			  <div  class="col-xs-6 col-sm-3">Прийняв ____________ </div>
+
+	</div>
+
+	<hr>
+
+			<div class="row">
+
+			  <div class="col-xs-8 col-sm-3"><img src="{% static "img/logo_doc.png" %}" ></div>
+
+			  <div  class="col-xs-4 col-sm-offset-3"  style="border: 1px solid black;">
+				   <p><font size="0.5" face="Arial">вул. Руська, 4-б </br>
+				  тел. /095/ 684-00-34 </br>
+				  kvant.cv@gmail.com </font> </p>
+			  </div>
+
+		</div>
+
+	    <div><h4 style="text-align:center;">Замовлення на прийом техніки в ремонт № {{ order.pk }} від {{order.date_now|date:"j E Y" }}</h4></div>
+
+	   <div >
+		   <table cellpadding="7" width="100%"> <font size="1">
+		   <tr>
+			   <td>Дата прийому: </td>
+			   <td>{{order.date_now|date:"d.m.Y H:i" }}</td>
+		       <td>RMA:</td>
+		   <tr/>
+           <tr>
+			   <td valign="top">Найменування:</td>
+			   <td valign="top">{{order.brand}}</td>
+		       <td valign="top">Дата продажу: {{order.warranty_start|date:"d.m.Y"}}</td>
+           <tr/>
+			   <tr>
+			   <td valign="top">Модель: </td>
+			   {% if order.model_item%}
+			   <td valign="top">{{order.model_item}}</td>
+			   {% else %}
+			   <td valign="top">&nbsp;</td>
+			   {% endif %}
+		       <td valign="top">Гарантійний ремонт: {% if order.is_warranty == True%} Так {% else %} Ні {% endif %}</td>
+           <tr/>
+		   <tr>
+			  <td valign="top">Серійний номер:</td>
+			   {% if order.serial_number%}
+			   <td valign="top">{{order.serial_number}}</td>
+			    {% else %}
+			   <td valign="top">&nbsp;</td>
+			   {% endif %}
+		       <td valign="top">Погоджуюся на опитування по E-Mail: Так  Ні</td>
+           <tr/>
+		   <tr>
+			  <td valign="top">Несправність:</td>
+			   {% if order.reason%}
+			   <td valign="top">{{order.reason}}</td>
+			    {% else %}
+			   <td valign="top">&nbsp;</td>
+			   {% endif %}
+		       <td>Графік роботи: Пн-Пт 10-19</td>
+           <tr/>
+		   <tr>
+			  <td valign="top">Зовнішній вигляд:</td>
+			   {% if order.look%}
+			   <td valign="top">{{order.look}}</td>
+			    {% else %}
+			   <td valign="top">&nbsp;</td>
+			   {% endif %}
+		       <td></td>
+           <tr/>
+		   <tr>
+			  <td valign="top">Комплектація:</td>
+			   {% if order.additional%}
+			   <td valign="top">{{order.additional}}</td>
+			    {% else %}
+			   <td valign="top">&nbsp;</td>
+			   {% endif %}
+		       <td></td>
+           <tr/>
+			<tr>
+			  <td valign="top">ПІБ Замовника:</td>
+
+			   <td valign="top">{{order.customer.contact_name}}</td>
+
+		       <td></td>
+           <tr/>
+		   <tr>
+			  <td valign="top">Телефон Замовника:</td>
+
+			   <td valign="top">{{order.customer.phone}}</td>
+
+		       <td></td>
+           <tr/>
+		   <tr>
+			  <td valign="top">Email:</td>
+			   {% if order.customer.email%}
+			   <td valign="top">{{order.customer.email}}</td>
+			    {% else %}
+			   <td valign="top">&nbsp;</td>
+			   {% endif %}
+		       <td></td>
+           <tr/>
+		   <tr>
+			  <td valign="top">Адреса:</td>
+			   {% if order.customer.adress%}
+			   <td valign="top">{{order.customer.adress}}</td>
+			    {% else %}
+			   <td valign="top">&nbsp;</td>
+			   {% endif %}
+		       <td></td>
+           <tr/>
+			<table/>
+
+
+
+	     </div>
+
+	   <div>
+		   <p style="text-align:justify; line-height: 10px; border: 1px solid black;"><font size="0.5" face="Arial">До уваги клієнтів! Умови проведення ремонту.<br>Сервісний центр усуває тільки заявлені несправності.
+		   Строк гарантійного ремонту складає 14 (чотирнадцять) днів при наявності запчастин,
+		   за умови відсилання техніки в СЦ першого рівня, строк ремонту подовжується на строк доставки виробу.
+		   В разі поставки запчастин з заводу виробника, строк ремонту може збільшуватись на 30 (тридцять) днів.
+		   Термін негарантійного ремонту - за домовленістю. Безоплатний строк зберігання відремонтованого обладнання 10 (десять) днів з дня сповіщення.
+		   Після проходження 10 днів стягується плата за зберігання в розмірі 10 гривень за добу зберігання. Після трьох місяців зберігання,
+		   обладнання переходить у власність сервісного центру.
+		   В разі відмови від ремонту, клієнт оплачує діагностику.
+		   Обладнання зі згоди клієнта прийнято без розбирання і перевірки несправностей, без перевірки внутрішніх пошкоджень.
+		   Клієнт згоден, що всі несправності і внутрішні ушкодження, які можуть бути виявлені в обладнанні при його технічному обслуговування виникли
+		   до прийому по даній квитанції.
+		   Сервісний центр не несе відповідальності за отримання обладнання іншою особою при пред’явленні квитанції.
+		   При втраті квитанції сповістити модель та ПІБ за тел. 095 684 00 34.
+		   Отримання обладнання без квитанції
+		   при пред’явленні паспорта. З комплектацією, описом дефектів, умовами зберігання та обслуговування обладнання згоден.
+		   З умовами і строками ремонту ознайомлений та згоден.</font></p>
+
+	   </div>
+
+	<div class="row">
+
+			  <div class="col-xs-6 col-sm-3">Клієнт  _____________</div>
+
+			  <div  class="col-xs-6 col-sm-3">Прийняв ____________ </div>
+
+	</div>
+
+   </div>
+ </body>
+</html>
+
+
+
+
+
+

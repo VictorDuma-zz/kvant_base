@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+{% load static from staticfiles %}
+{% load i18n %}
+
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Квант сервіс</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static "vendor/bootstrap/css/bootstrap.css" %}" rel="stylesheet">
+    <link href="{% static "css/main.css" %}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{% static "vendor/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
+    <link href="{% static "src/css/lightbox.css" %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Theme CSS -->
+    <link href="{% static "css/agency.css" %}" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+
+<body id="page-top" class="index">
+
+    <!-- Navigation -->
+    <nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> Меню <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Головна</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#portfolio">Ремонтуємо</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#services">Гарантійні ремонти</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">Про нас</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#adres">Контакти</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contacts">Зворотній зв'язок</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid  poster="static/img/header-bg.jpg"-->
+    </nav>
+
+
+    <header>
+        <div class="container">
+             <div class="fullscreen-bg">
+    <video loop muted autoplay class="fullscreen-bg__video">
+
+        <source src="static/video2.mp4" type="video/mp4">
+                 <img src="{% static "img/header-bg.jpg" %}" >
+
+             </div>
+    </div>
+
+            <div class="intro-text">
+                <div class="intro-lead-in">Вас вітає команда Квант сервісу!</div>
+                <div class="intro-heading">Ремонт техніки - це просто!</div>
+                <div class="intro-heading">095-684-00-34</div>
+                <div class="intro-heading">SKYPE: KVANT-SERVICE</div>
+                <div class="intro-heading">
+                    <a href="https://www.facebook.com/%D0%9A%D0%B2%D0%B0%D0%BD%D1%82-%D0%A1%D0%B5%D1%80%D0%B2%D1%96%D1%81-1004372516311191/">
+                        <img src="{% static "img/facebook.png" %}" class="img-responsive img-circle  center-block"  width="150" height="150" alt=""></a></div>
+                <a href="#adres" class="page-scroll btn btn-xl">ЯК НАС ЗНАЙТИ</a>
+
+
+
+        </div>
+    </header>
+
+
+ <!-- Що ремонтуємо -->
+    <section id="portfolio" class="bg-light-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Що ремонтуємо</h2>
+                    <h3 class="section-subheading text-muted"></h3>
+                </div>
+            </div>
+
+            <div class="row">
+
+                {% for repair in repairs %}
+
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="#{{repair.id}}" class="portfolio-link" data-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        {% if repair.repair_photo %}
+                        <img src="{{repair.repair_photo.url}}" class="img-responsive" alt="">
+                        {% endif %}
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>{{repair.repair_title}}</h4>
+                        <p class="text-muted">{{repair.repair_title}}</p>
+
+                    </div>
+                </div>
+
+
+
+               {% endfor %}
+      </div>
+            </div>
+
+    </section>
+ <!-- Modal window -->
+    {% for repair in repairs %}
+        <div id="{{repair.id}}" class="modal fade">
+            <div class="modal-dialog">
+                 <div class="modal-content">
+                    <div class="modal-header"><button class="close" type="button" data-dismiss="modal">×</button>
+                         <h4 class="modal-title">{{repair.repair_title}}</h4>
+                    </div>
+                      <div class="modal-body">{{repair.repair_text|linebreaksbr}}</div>
+                          <div class="modal-footer"><button class="btn btn-default" type="button" data-dismiss="modal">Закрити</button></div>
+                 </div>
+             </div>
+        </div>
+    {% endfor %}
+
+
+    <!-- Гарантійні ремонти -->
+    <section id="services" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Ремонт</h2>
+                    <h3 class="section-subheading text-muted">Гарантійні ремонти</h3>
+                </div>
+            </div>
+            <div class="row">
+            {% for warranty in warrantys %}
+
+
+                <div class="col-md-2 col-sm-4 board_hover_1">
+                   {% if warranty.warranty_photo %}
+                        <img src="{{warranty.warranty_photo.url}}" class="img-responsive img-circle  center-block"  width="100" height="111" alt="">
+                    {% endif %}
+                    <h4 class="section-heading">{{warranty.warranty_title}}</h4>
+                    <p>{{warranty.warranty_text|linebreaks}}</p>
+
+
+                 </div>
+
+             {% endfor %}
+
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- Сертифікати -->
+    <section id="about" class="bg-light-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Наші досягнення</h2>
+                    <h3 class="section-subheading text-muted">Сертифікати</h3>
+                </div>
+            </div>
+             <div class="row">
+            {% for certificate in certificates %}
+
+
+                <div class="col-md-2 col-sm-4 ">
+                   {% if certificate.certificate_photo %}
+                       <a class="example-image-link" href={{certificate.certificate_photo.url}} data-lightbox="example-set"><img class="example-image board_hover" src="{{certificate.certificate_photo.url}}"  width="180" alt=""></a>
+                    {% endif %}
+
+                 </div>
+
+             {% endfor %}
+
+        </div>
+    </section>
+
+    <!-- map -->
+    <section id="adres" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1 class="section-heading">Адреса</h1>
+                    <h3>Чернівці, вул. Руська 4-б</h3>
+                    <h3>тел. (0372) 57-76-00 / (095) 684-00-34</h3>
+                    <h3>e-mail: kvant.cv@gmail.com</h3>
+                    <h3>SKYPE: KVANT-SERVICE</h3>
+                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2654.565990953792!2d25.93417545159959!3d48.291964979134065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47340890cd83748f%3A0xf1fc2f9d5c457181!2z0JrQktCQ0J3Qoi3QodC10YDQstGW0YE!5e0!3m2!1suk!2sua!4v1473591267596" width="1200" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+   
+    <!-- Contact Section -->
+    <section id="contacts" class="bg-light-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Зворотній зв'язок</h2>
+                    <h3 class="section-subheading text-muted">Відправте нам ваше повідомлення</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <form action="{% url 'my_site' %}" method="post">
+                {% csrf_token %}
+               
+                {{ form.non_field_errors }}
+
+               <div>
+                      <label for="id_subject">Тема:</label>
+                      {{ form.subject.errors }}
+                	  
+                  <input class="form-control" id="id_subject" name="subject" placeholder="Тема">
+                </div>&nbsp;
+
+                <div>
+                  <label for="id_sender">E-mail:</label>
+                  {{ form.sender.errors }}
+              
+                  <input class="form-control" id="id_sender" name="sender" placeholder="Ваш e-mail">
+                </div> &nbsp;
+
+            <div>
+              <label for="id_message">Питання:</label>
+              {{ form.message.errors }}
+        	  
+              <textarea class="form-control" id="id_message" name="message" placeholder="Введіть ваше повідомлення"></textarea>
+            </div> &nbsp;
+
+            <div>
+              {{ form.copy.errors }}
+              <label for="id_copy">{{ form.copy }} Відправити собі копію </label>
+            </div>
+
+            <br>
+            <input type="submit" class="btn btn-success" value="Відправити повідомлення"/>
+     </form>
+               </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Права захищено &copy; Квант сервіс 2016</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        </li>
+                                            </ul>
+                </div>
+                
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- jQuery -->
+    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+
+
+
+    <script src="{% static "vendor/bootstrap/js/bootstrap.js" %}"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+
+    <script src="{% static "js/agency.js" %}"></script>
+
+
+
+    <script src="{% static "src/js/lightbox.js" %}"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-22521969-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  <!-- BEGIN JIVOSITE CODE {literal} -->
+<script type='text/javascript'>
+(function(){ var widget_id = '2Suw0lpex2';var d=document;var w=window;function l(){
+var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);}if(d.readyState=='complete'){l();}else{if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();</script>
+<!-- {/literal} END JIVOSITE CODE -->
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+{% block meta_title %}{% trans "Login Form" %}{% endblock meta_title %}
+{% block title %}{% endblock title %}
+
+{% block status_message %}
+{% if form.errors %}
+
+  <div class="form-horizontal form_block alert alert-warning" role="alert">
+    {% if form.non_field_errors %}
+      {{ form.non_field_errors.as_text }}
+    {% else %}
+      {% trans "Please, correct the following errors." %}
+    {% endif %}
+  </div>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+	<div class="row-fluid" >
+		 <div class="col-xs-6 col-sm-4"></div>
+		   <div class="col-xs-6 col-sm-4 centering">
+			   <h1 align="center">Login</h1>
+			<form action="{% url "auth_login" %}" method="post">
+
+				  {% csrf_token %}
+				  <input type="hidden" name="next" value="{% url "kvant_base" %}" />
+
+				  <div class="form-inline ">
+					<label for="login">login</label>
+					<input type="text" class="form-control" id="login" value=""
+						   name="username" />
+					<span class="help-block">{{ form.errors.username.as_data.0.0 }}</span>
+				  </div>
+
+				  <div class="form-inline ">
+					<label for="password">Password</label>
+					<input type="password" class="form-control" id="password" value=""
+						   name="password" />
+					<span class="help-block">{{ form.errors.password.as_data.0.0 }}</span>
+				  </div>
+
+				  <button type="submit" class="btn btn-primary">Submit</button>
+
+			</form>
+
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

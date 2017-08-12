@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+{% block title %}Видалити вид роботи{% endblock title %}
+
+{% block content %}
+
+	  <form id="forminput" action="{% url 'salary_confirm_delete' object.id%}" class="form-horizontal form_field" method="post" name="salary_confirm_delete" >
+
+      	 {% csrf_token%}
+		 <p>Ви дійсно хочете видалити роботу "{{ object }}"?</p>
+  <input type="submit" value="Так" name="delete_button"
+         class="btn btn-danger" /><br /><br />
+	  </form>
+	 
+{% endblock content %}

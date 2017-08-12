@@ -1,0 +1,57 @@
+{% extends "base_2.html" %}
+{% load static from staticfiles %}
+{% block title %}{% endblock title %}
+
+
+
+
+
+   {% block content %}
+
+<table class="table table-bordered table-condensed" >
+
+
+                  <thead class="table-fixedheader">
+				  <tr>
+					  <th>№</th>
+					  <th>Дата</th>
+					  <th>Клієнт</th>
+					  <th>Телефон</th>
+					  <th>Бренд</th>
+					  <th>Модель</th>
+					  <th>Вартість</th>
+					  <th>Серійний номер</th>
+					  <th>Статус</th>
+					  <th>Відправка</th>
+					  <th>Гарантія</th>
+
+				  </tr>
+				  </thead>
+
+
+			   <tbody >
+
+		   {% for table in tables %}
+
+		   <tr class="{{table.status}}" ondblclick="go('{% url 'edit_order' table.id %}'); return false;">
+
+			  <td >{{table.id}}</td>
+			  <td>{{table.date_now|date:"d.m.Y H:i"}}</td>
+			  <td>{{table.customer.contact_name}}</td>
+			  <td>{{table.customer.phone}}</td>
+			  <td>{{table.brand}}</td>
+			  <td>{{table.model_item}}</td>
+			   <td>{{table.cost_repair}}</td>
+			  <td>{{table.serial_number}}</td>
+			  <td>{{table.get_status_display}}</td>
+			   <td>{{table.get_to_send_display}}</td>
+			  <td>{{table.get_is_warranty_display}}</td>
+
+		  </tr>
+
+			    {% endfor %}
+			   </tbody>
+
+	   </table>
+
+{% endblock content %}

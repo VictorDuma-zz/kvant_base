@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+<table cellspacing="0" border="0">
+	<colgroup width="54"></colgroup>
+	<colgroup width="153"></colgroup>
+	<colgroup width="79"></colgroup>
+	<colgroup width="179"></colgroup>
+	<colgroup width="89"></colgroup>
+	<colgroup width="63"></colgroup>
+	<colgroup width="97"></colgroup>
+	<tr>
+		<td height="27" align="left" valign=bottom><br></td>
+		<td colspan=5 align="center" valign=middle><b><font size=4><h1>Чек № {{order.id }} від {{order.created_at|date:"j E Y" }}</h1></font></b></td>
+		<td align="left" valign=bottom><br></td>
+	</tr>
+	<tr>
+
+		<td align="right" valign=middle><b><u><font size=3>Постачальник:</font></u></b></td>
+		<td align="left" valign=middle><font size=3>Гримський А.Я.</font></td>
+
+	</tr>
+	<tr>
+
+		<td align="right" valign=middle><u><font size=3>Адреса:</font></u></td>
+		<td colspan=4 align="left" valign=middle><font size=3>58000, м. Чернівці, вул. Руська, 4-Б.</font></td>
+
+	</tr>
+	<tr>
+
+		<td align="right" valign=middle><u><font size=3>Телефон:</font></u></td>
+		<td align="left" valign=middle><font size=3>(095) 684-00-34</font></td>
+
+	</tr>
+
+	<tr>
+
+		<td align="right" valign=middle><b><u><font size=3>Замовник:</font></u></b></td>
+		<td colspan=3 align="left" valign=middle><font size=3>{{order.agent}}</font></td>
+
+	</tr>
+	<tr>
+		<td height="19" align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+	</tr>
+	<tr>
+		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="21" align="center" valign=top bgcolor="#CCFFFF"><b><font size=3>№ п/п</font></b></td>
+		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center" valign=top bgcolor="#CCFFFF"><b><font size=3>Перелік наданих послуг / виконаних робіт</font></b></td>
+		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=top bgcolor="#CCFFFF"><b><font size=3>Ціна, грн </font></b></td>
+	    <td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=top bgcolor="#CCFFFF"><b><font size=3>К-ть</font></b></td>
+		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign=top bgcolor="#CCFFFF"><b><font size=3>Сума, грн</font></b></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" height="21" align="center" valign=middle sdval="1" sdnum="1033;0;0"><font size=3>1</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left" valign=middle><font size=3>{{order.notes}}<br></font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle><font size=3>{{order.debit}}<br></font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="1" sdnum="1033;0;0"><font size=3>1</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign=middle><font size=3>{{order.debit}}<br></font></td>
+	</tr>
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=6 height="21" align="right" valign=bottom><b><font size=3>Вартість послуг (робіт):</font></b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" align="right" valign=middle><font size=3>{{order.debit}}<br></font></td>
+	</tr>
+
+	<tr>
+		<td height="15" align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+	</tr>
+
+	<tr>
+		<td height="28" align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+	</tr>
+	<tr>
+		<td height="28" align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td colspan=2 align="right" valign=bottom>__________________________</td>
+		<td align="left" valign=bottom><font size=3>Гримський А.Я.</font></td>
+		<td align="left" valign=bottom><br></td>
+	</tr>
+</table>
+
+</div>
+{% endblock content %}

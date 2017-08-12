@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<div class="container-fluid">
+
+<table cellspacing="0" border="0">
+	<colgroup width="87"></colgroup>
+	<colgroup width="119"></colgroup>
+	<colgroup width="74"></colgroup>
+	<colgroup width="68"></colgroup>
+	<colgroup width="75"></colgroup>
+	<colgroup width="67"></colgroup>
+	<colgroup width="58"></colgroup>
+	<colgroup width="49"></colgroup>
+	<colgroup width="74"></colgroup>
+	<tr>
+		<td colspan=3 rowspan=3 height="64" align="left" valign=bottom><br><img src="{% static "img/logo_doc.png" %}" width=199 height=47 hspace=41 vspace=9>
+		</td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td colspan=3 align="right" valign=bottom><font size=3>вул. Руська, 4б</font></td>
+		</tr>
+	<tr>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td colspan=3 align="right" valign=bottom><font size=3>тел. 57-76-00</font></td>
+		</tr>
+	<tr>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td colspan=3 align="right" valign=bottom><font size=3>/095/ 684-00-34</font></td>
+		</tr>
+	<tr>
+		<td height="4" align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+	</tr>
+	<tr>
+		<td colspan=9 height="25" align="center" valign=bottom><font size=4><h2>Акт видачі техніки з ремонту № {{ order.pk }} від {{order.date_now|date:"j E Y" }}</h2></font></td>
+		</tr>
+	<tr>
+		<td height="5" align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+	</tr>
+	<tr>
+		<td colspan=2 height="20" align="left" valign=bottom><font size=2>Дата прийому:</font></td>
+		<td style="border-bottom: 1px solid #000000" colspan=7 align="left" valign=bottom><font size=2>{{order.date_now|date:"j E Y" }}</font></td>
+		</tr>
+	<tr>
+		<td colspan=2 height="24" align="left" valign=bottom><font size=2>Найменування:</font></td>
+		<td style="border-bottom: 1px solid #000000" colspan=7 align="left" valign=bottom><font size=2>{{order.brand}}</font></td>
+		</tr>
+	<tr>
+		<td colspan=2 height="23" align="left" valign=bottom><font size=2>Модель:</font></td>
+		<td style="border-bottom: 1px solid #000000" colspan=7 align="left" valign=bottom><font size=2>{{order.model_item}}</font></td>
+		</tr>
+	<tr>
+		<td colspan=2 height="28" align="left" valign=middle><font size=2>Серійний номер:</font></td>
+		<td style="border-bottom: 1px solid #000000" colspan=7 align="left" valign=middle sdval="50130110334" sdnum="1033;0;0"><font size=2>{{order.serial_number}}</font></td>
+		</tr>
+	<tr>
+		<td colspan=2 height="53" align="left" valign=top><font size=2>Виконані роботи:</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=7 align="left" valign=top><font size=2>{{order.notes}}</font></td>
+		</tr>
+	<tr>
+		<td colspan=2 height="24" align="left" valign=bottom><font size=2>Дата завершення ремонту:</font></td>
+		<td style="border-bottom: 1px solid #000000" colspan=7 align="left" valign=bottom><font size=2>{{order.date_close|date:"j E Y"}}</font></td>
+		</tr>
+	<tr>
+		<td colspan=2 height="24" align="left" valign=bottom><font size=2>ПІБ Замовника:</font></td>
+		<td style="border-bottom: 1px solid #000000" colspan=5 align="left" valign=bottom><font size=2>{{order.customer.contact_name}}</font></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+	</tr>
+	<tr>
+		<td colspan=4 height="51" align="right" valign=bottom><font size=2>Обладнання / виріб отримав. Претензій не маю  </font></td>
+		<td style="border-bottom: 1px solid #000000" colspan=3 align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+		<td align="left" valign=bottom><br></td>
+	</tr>
+	<tr>
+		<td style="border-bottom: 1px solid #000000" colspan=9 height="9" align="left" valign=bottom><br></td>
+		</tr>
+</table>
+</div>
+{% endblock content %}

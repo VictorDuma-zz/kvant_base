@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block status_message %}
+{% if form.errors %}
+<div class=”alert alert-warning” role=”alert”>Будь-ласка, виправте наступні помилки</div>
+{% endif %}
+{% endblock %}
+
+{% block title %}<h1>Закрити замовлення</h1>{% endblock title %}
+
+{% block content %}
+
+
+
+	  <form action='{% url "close_order" order.pk %}' method="post" enctype="multipart/form-data" class="close-form" name="myform" role="form">
+         <input type="hidden" value="27" name="" class="form-horizontal"/>
+		   {% csrf_token%}
+
+          <div class="form-horizontal form_block">
+		   <label for="id">Номер замовлення</label>
+         <input class="form-control"  type="text" value="{{ order.pk }}" name="id" id="id" />
+        </div> </br>
+
+           <div class="form-horizontal form_block">
+		   <label for="id">Клієнт</label>
+         <input class="form-control"  type="text" value="{{ order.customer.contact_name }}" name="contact_name" id="contact_name" />
+        </div> </br>
+
+
+          <div class="form-horizontal form_block">
+		   <label for="cost_repair">Додати оплату</label>
+         <input class="form-control"  type="text" value="{{ order.cost_repair }}" name="cost_repair" id="cost_repair" />
+              </div></br>
+
+           <div class="form-horizontal form_block">
+              <select class="selectpicker form-control" name="balance_name" id="balance_name">
+
+                  {%for balance in balances%}
+            <option value="{{ balance.id }}" >{{ balance.name }}</option>
+                 {% endfor %}
+            </select>
+           </div>
+
+
+           <span class="help-block">{{ errors.balance }}</span>
+
+          <div class="form-horizontal form_block">
+
+         <input type="checkbox" class="is_money"><label >провести оплату</label >
+         </div>
+
+          <div class="form-horizontal form_block">
+
+		  <input type="submit" name="save_button" value="Закрити" class="btn btn-mini"/>
+		  <input type="submit" name="cancel_button" value="Скасувати" class="btn btn-mini"/>
+
+         </div>
+
+	  </form>
+
+
+
+
+{% endblock content %}
+

@@ -1,0 +1,123 @@
+{% extends "base_2.html" %}
+{% load static from staticfiles %}
+
+{% block menu %}
+				{% include "navbar.html" %}
+{% endblock menu %}
+
+   {% block content %}
+
+
+           <table id="table1" class="table table-bordered table-condensed table-fixedheader" >
+                   {% with order_by=request.GET.order_by reverse=request.GET.reverse %}
+
+                  <thead class="table-fixedheader">
+				  <tr>
+					  <th><a href="{% url "kvant_base" %}?order_by=id{% if order_by == 'id' and reverse != '1' %}&amp;reverse=1{% endif %}">
+									  №
+									  {% if order_by == 'id' and reverse != '1' %}&uarr;
+									  {% elif order_by == 'id' and reverse == '1' %}&darr;
+									  {% endif %} </a></th>
+					  <th>Дата</th>
+					  <th><a href="{% url "kvant_base" %}?order_by=customer{% if order_by == 'customer' and reverse != '1' %}&amp;reverse=1{% endif %}">
+									  Клієнт
+									  {% if order_by == 'customer' and reverse != '1' %}&uarr;
+									  {% elif order_by == 'customer' and reverse == '1' %}&darr;
+									  {% endif %} </a>
+								  </th>
+					  <th>Телефон</th>
+					  <th><a href="{% url "kvant_base" %}?order_by=brand{% if order_by == 'brand' and reverse != '1' %}&amp;reverse=1{% endif %}">
+									  Бренд
+									  {% if order_by == 'brand' and reverse != '1' %}&uarr;
+									  {% elif order_by == 'brand' and reverse == '1' %}&darr;
+									  {% endif %} </a></th>
+					  <th>Модель</th>
+                                          <th>Вартість</th>
+					  <th>Серійний номер</th>
+					  <th><a href="{% url "kvant_base" %}?order_by=status{% if order_by == 'status' and reverse != '1' %}&amp;reverse=1{% endif %}">
+									  Статус
+									  {% if order_by == 'status' and reverse != '1' %}&uarr;
+									  {% elif order_by == 'status' and reverse == '1' %}&darr;
+									  {% endif %} </a></th>
+					  <th><a href="{% url "kvant_base" %}?order_by=engineer{% if order_by == 'engineer' and reverse != '1' %}&amp;reverse=1{% endif %}">
+									  Інженер
+									  {% if order_by == 'engineer' and reverse != '1' %} &uarr;
+									  {% elif order_by == 'engineer' and reverse == '1' %} &darr;
+									  {% endif %} </a></th>
+                                          <th>Несправність</th>
+					  <th>Дія</th>
+					  <th>Дата закриття</th>
+					  <th>Гарантія</th>
+                                          
+
+
+
+				  </tr>
+				  </thead>
+			      {% endwith %}
+
+
+			   <tbody >
+
+		   {% for table in tables %}
+
+		   <tr class="{{table.status}}" ondblclick="go('{% url 'edit_order' table.id %}'); return false;">
+
+			  <td>{{table.id}}</td>
+			  <td>{{table.date_now|date:"d.m.Y H:i"}}</td>
+			  <td>{{table.customer.contact_name}}</td>
+			  <td>{{table.customer.phone}}</td>
+			  <td>{{table.brand}}</td>
+			  <td>{{table.model_item}}</td>
+                          <td>{{table.cost_repair}}</td>
+			  <td>{{table.serial_number}}</td>
+			  <td>{{table.get_status_display}}</td>
+                          {%if table.engineer%}
+			  <td>{{table.engineer}}</td>
+                          {%else%}
+			   <td></td>
+			  {%endif%}
+                          <td>{{table.reason}}</td>
+                         
+
+			   <td><div class="dropdown"> <a class="dropdown-toggle btn btn-primary" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+                                                                        Дія <b class="caret"></b> </a>
+               <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+
+				  <li><a class="btn btn-mini" href = '' role="button" onclick="go('{% url 'close_order' table.id%}'); return false;">Закрити </a></li>
+                                  <li><a class="btn btn-mini" href = '' role="button" onclick="go('{% url 'copy_order' table.id%}'); return false;">Копія </a></li>
+				  <li><a class="btn btn-mini" href = '' role="button" onclick="go('{% url 'order_doc' table.id%}'); return false;">Друк заявки</a></li>
+				  <li><a class="btn btn-mini" href = '' role="button" onclick="go('{% url 'sticker' table.id%}'); return false;">Друк наліпки</a></li>
+                                  <li><a class="btn btn-mini" href = '' role="button" >Друк акту на списання</a></li>
+				  <li><a class="btn btn-mini" href = '' role="button" onclick="go('{% url 'hand_in' table.id%}'); return false;">Друк акту видачі</a></li>
+
+
+              </ul>
+                  </div>
+
+			   </td>
+			   {%if table.date_close%}
+			   <td>{{table.date_close|date:"d.m.Y H:i" }}</td>
+			   {%else%}
+			   <td></td>
+			   {%endif%}
+
+			   <td>{{table.get_is_warranty_display}}</td>
+                           
+		  </tr>
+
+			    {% endfor %}
+			   </tbody>
+
+	   </table>
+
+
+
+
+
+
+
+
+
+{% endblock content %}
+
